@@ -1,0 +1,15 @@
+.root {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+
+	.childA {
+		width: 40%;
+		padding-right: 0.5em
+	}
+
+	.childB {
+		width: 60%;
+		padding-left: 0.5em
+	}
+}

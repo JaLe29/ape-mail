@@ -1,6 +1,7 @@
 import { createCache, extractStyle, StyleProvider } from '@ant-design/cssinjs';
 import type { DocumentContext } from 'next/document';
 import Document, { Head, Html, Main, NextScript } from 'next/document';
+import NextTopLoader from 'nextjs-toploader';
 
 const MyDocument = () => (
 	<Html lang="en">
@@ -17,6 +18,7 @@ const MyDocument = () => (
 			<meta property="og:image" content="https://example.com/images/cool-page.jpg" />
 		</Head>
 		<body>
+			<NextTopLoader />
 			<Main />
 			<NextScript />
 		</body>

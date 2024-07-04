@@ -1,5 +1,5 @@
 {
-	"name": "trpc-next-prisma-todo-app",
+	"name": "ape-mail",
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
@@ -9,15 +9,14 @@
 		"migrate:dev": "npx prisma migrate dev",
 		"migrate:deploy": "npx prisma migrate deploy",
 		"migrate:full": "yarn migrate:dev && yarn migrate:deploy",
-		"lint": "next lint"
+		"lint": "next lint",
+		"prisma:generate": "prisma generate"
 	},
 	"dependencies": {
 		"@ant-design/cssinjs": "^1.21.0",
 		"@ant-design/icons": "^5.3.7",
 		"@ant-design/nextjs-registry": "^1.0.0",
-		"@emotion/react": "^11.11.0",
-		"@emotion/styled": "^11.11.0",
-		"@prisma/client": "^4.14.1",
+		"@prisma/client": "^5.16.1",
 		"@tanstack/react-query": "^4.29.7",
 		"@trpc/client": "^10.28.0",
 		"@trpc/next": "^10.28.0",
@@ -26,20 +25,24 @@
 		"@trpc/server": "^10.28.0",
 		"antd": "^5.19.0",
 		"antd-zod": "^5.1.0",
-		"framer-motion": "^10.12.16",
+		"html-format": "^1.1.7",
 		"next": "13.4.3",
-		"prisma": "^4.14.1",
-		"react": "18.2.0",
-		"react-dom": "18.2.0",
+		"nextjs-toploader": "^1.6.12",
+		"nodemailer": "^6.9.14",
+		"prisma": "^5.16.1",
+		"react": "18.3.1",
+		"react-dom": "18.3.1",
 		"react-query": "^3.39.3",
 		"superjson": "^1.12.3",
-	    "zod": "^3.22.4"
+		"zod": "^3.22.4",
+		"zod-validation-error": "^3.3.0"
 	},
 	"devDependencies": {
 		"@types/node": "20.2.3",
+		"@types/nodemailer": "^6.4.15",
 		"@types/prettier": "^3.0.0",
-		"@types/react": "18.2.7",
-		"@types/react-dom": "18.2.4",
+		"@types/react": "18.3.3",
+		"@types/react-dom": "18.3.0",
 		"@typescript-eslint/eslint-plugin": "^6.18.1",
 		"@typescript-eslint/parser": "^6.18.1",
 		"eslint": "8.41.0",
@@ -48,6 +51,6 @@
 		"eslint-plugin-prettier": "^5.1.3",
 		"prettier": "^3.2.5",
 		"prettier-plugin-organize-imports": "^3.2.4",
-		"typescript": "5.0.4"
+		"typescript": "5.5.3"
 	}
 }

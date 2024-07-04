@@ -38,11 +38,6 @@ export const Layout: React.FC<Props> = ({ children }) => {
 							label: <Link href="/">Home</Link>,
 						},
 						{
-							key: '1',
-							icon: <UserOutlined />,
-							label: <Link href="/projects">Projects</Link>,
-						},
-						{
 							key: '2',
 							icon: <VideoCameraOutlined />,
 							label: <Link href="/templates">Templates</Link>,
@@ -50,7 +45,7 @@ export const Layout: React.FC<Props> = ({ children }) => {
 						{
 							key: '3',
 							icon: <UploadOutlined />,
-							label: <Link href="/users">Users</Link>,
+							label: <Link href="/contacts">Contacts</Link>,
 						},
 					]}
 				/>
