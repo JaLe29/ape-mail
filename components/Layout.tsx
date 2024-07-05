@@ -8,6 +8,7 @@ import {
 } from '@ant-design/icons';
 import { Button, Layout as LayoutAntd, Menu, theme } from 'antd';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 const { Header, Sider, Content } = LayoutAntd;
@@ -17,6 +18,10 @@ interface Props {
 }
 
 export const Layout: React.FC<Props> = ({ children }) => {
+	const router = useRouter();
+
+	const isHomePage = router.pathname === '/';
+
 	const [collapsed, setCollapsed] = useState(false);
 	const {
 		token: { colorBgContainer, borderRadiusLG },
@@ -68,8 +73,8 @@ export const Layout: React.FC<Props> = ({ children }) => {
 						margin: '24px 16px',
 						padding: 24,
 						minHeight: 280,
-						background: colorBgContainer,
-						borderRadius: borderRadiusLG,
+						background: isHomePage ? undefined : colorBgContainer,
+						borderRadius: isHomePage ? undefined : borderRadiusLG,
 					}}
 				>
 					{children}

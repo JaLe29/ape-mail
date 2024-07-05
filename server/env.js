@@ -14,9 +14,7 @@ const envSchema = z.object({
 });
 
 const env = envSchema.safeParse(process.env);
-console.log(process.env);
-console.log('--');
-console.log(env.data);
+
 if (!env.success) {
 	console.error(env.error);
 	console.error('❌ Invalid environment variables:');

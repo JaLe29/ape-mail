@@ -24,7 +24,7 @@ const Contacts: NextPage = () => {
 						key: 'email',
 					},
 					{
-						title: 'MessagesCount',
+						title: 'Messages Count',
 						dataIndex: 'messagesCount',
 						key: 'messagesCount',
 					},

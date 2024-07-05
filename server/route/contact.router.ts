@@ -1,4 +1,5 @@
 import { prisma } from '@/server/prisma';
+import dayjs from 'dayjs';
 import { publicProcedure, router } from '../trpc';
 
 export const contactRouter = router({
@@ -20,5 +21,40 @@ export const contactRouter = router({
 				messagesCount: messages?._count?.contactId || 0,
 			};
 		});
+	}),
+	//
+	totalContacts: publicProcedure.query(async () => {
+		const result = await prisma.contact.count();
+		return result;
+	}),
+	totalContactsToday: publicProcedure.query(async () => {
+		const result = await prisma.contact.count({
+			where: {
+				createdAt: {
+					gte: dayjs().startOf('day').toDate(),
+				},
+			},
+		});
+		return result;
+	}),
+	totalContactsLastWeek: publicProcedure.query(async () => {
+		const result = await prisma.contact.count({
+			where: {
+				createdAt: {
+					gte: dayjs().startOf('week').toDate(),
+				},
+			},
+		});
+		return result;
+	}),
+	totalContactsLastHour: publicProcedure.query(async () => {
+		const result = await prisma.contact.count({
+			where: {
+				createdAt: {
+					gte: dayjs().subtract(1, 'hour').toDate(),
+				},
+			},
+		});
+		return result;
 	}),
 });

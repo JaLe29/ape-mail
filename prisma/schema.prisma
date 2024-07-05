@@ -35,16 +35,17 @@ model Template {
     updatedAt DateTime @updatedAt
 
     // ------------------------------------------------------------------------------------------------------------
-    name    String
-    key     String @unique
-    subject String
-    body    String
+    name        String
+    description String?
+    key         String  @unique
+    subject     String
+    body        String
 
     messages Message[]
 
     type TemplateType @default(CHILD)
 
-	rootTemplateId String?
+    rootTemplateId String?
 }
 
 model Message {

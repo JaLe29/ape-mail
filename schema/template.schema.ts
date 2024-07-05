@@ -20,6 +20,7 @@ export const createTemplate = z.object({
 	key: z.string(),
 	type: z.nativeEnum(TemplateType),
 	rootTemplateId: z.string().uuid().optional(),
+	description: z.string().optional(),
 });
 
 export const updateTemplate = z.object({
@@ -30,4 +31,5 @@ export const updateTemplate = z.object({
 	key: z.string(),
 	type: z.nativeEnum(TemplateType),
 	rootTemplateId: z.string().uuid().optional(),
+	description: z.string().optional(),
 });

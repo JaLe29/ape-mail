@@ -4,7 +4,7 @@ import css from '@/styles/Template.module.css';
 import { getTemplates, isUUID, replaceTemplates } from '@/utils/string';
 import { trpc } from '@/utils/trpc';
 import { TemplateType } from '@prisma/client';
-import { Button, Divider, Input, Radio, Select, Space, Tag } from 'antd';
+import { Button, Divider, Input, notification, Radio, Select, Space, Tag } from 'antd';
 import format from 'html-format';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -20,6 +20,7 @@ interface LocalTemplate {
 	subject: string;
 	type: TemplateType;
 	rootTemplateId?: string;
+	description?: string;
 }
 const Template: NextPage = () => {
 	const router = useRouter();
@@ -49,7 +50,11 @@ const Template: NextPage = () => {
 
 	useEffect(() => {
 		if (one.data) {
-			setTemplate({ ...one.data, rootTemplateId: one.data.rootTemplateId || undefined });
+			setTemplate({
+				...one.data,
+				rootTemplateId: one.data.rootTemplateId || undefined,
+				description: one.data.description || undefined,
+			});
 		}
 	}, [one.data]);
 
@@ -58,27 +63,42 @@ const Template: NextPage = () => {
 			return;
 		}
 
-		if (template.id === 'new') {
-			const res = await create.mutateAsync({
-				name: template.name,
-				body: template.body,
-				key: template.key,
-				subject: template.subject,
-				type: template.type,
-				rootTemplateId: template.rootTemplateId,
-			});
-			if (res) {
-				router.push(`/templates/${res}`);
+		try {
+			if (template.id === 'new') {
+				const res = await create.mutateAsync({
+					name: template.name,
+					body: template.body,
+					key: template.key,
+					subject: template.subject,
+					type: template.type,
+					rootTemplateId: template.rootTemplateId,
+					description: template.description,
+				});
+				if (res) {
+					router.push(`/templates/${res}`);
+					notification.success({
+						message: 'Successfully created',
+					});
+				}
+			} else {
+				await update.mutateAsync({
+					id: template.id,
+					name: template.name,
+					body: template.body,
+					key: template.key,
+					subject: template.subject,
+					type: template.type,
+					rootTemplateId: template.rootTemplateId,
+					description: template.description,
+				});
+				notification.success({
+					message: 'Successfully updated',
+				});
 			}
-		} else {
-			await update.mutateAsync({
-				id: template.id,
-				name: template.name,
-				body: template.body,
-				key: template.key,
-				subject: template.subject,
-				type: template.type,
-				rootTemplateId: template.rootTemplateId,
+		} catch (error) {
+			console.error(error);
+			notification.error({
+				message: 'Failed',
 			});
 		}
 	};
@@ -90,10 +110,6 @@ const Template: NextPage = () => {
 	const templateRoot = listRootTemplates.data?.find(t => t.id === template.rootTemplateId);
 	const hasTemplate = template.type === TemplateType.CHILD && !!templateRoot;
 	const htmlToShow = hasTemplate ? replaceTemplates(templateRoot.body, { body: template.body }) : template.body;
-
-	console.log(listRootTemplates.data);
-	console.log(template.rootTemplateId);
-	console.log({ templateRoot });
 
 	return (
 		<>
@@ -195,6 +211,22 @@ const Template: NextPage = () => {
 							</FormElement>
 						</>
 					)}
+					<FormElement label="Description">
+						<TextArea
+							placeholder="Description"
+							value={template.description}
+							autoSize={{ minRows: 3, maxRows: 5 }}
+							onChange={e =>
+								setTemplate(prev => {
+									if (!prev) return prev;
+									return {
+										...prev,
+										description: e.target.value,
+									};
+								})
+							}
+						/>
+					</FormElement>
 					<FormElement label="Content">
 						<TextArea
 							placeholder="Content"
@@ -228,7 +260,7 @@ const Template: NextPage = () => {
 						</Button>
 					</Space>
 				</div>
-				<div className={css.childBs}>
+				<div className={css.childB}>
 					<FormElement label="Subject">
 						<div>{template.subject}</div>
 					</FormElement>

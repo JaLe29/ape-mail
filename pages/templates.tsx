@@ -12,7 +12,7 @@ const Templates: NextPage = () => {
 		return (
 			<div>
 				<PageHeader
-					breadcrumb={[{ title: 'Templates' }, { title: 'foo1' }, { title: 'foo2' }]}
+					breadcrumb={[{ title: 'Templates' }]}
 					right={<Link href={'/templates/new'}>New template</Link>}
 				/>
 				<>Loading</>
@@ -23,7 +23,7 @@ const Templates: NextPage = () => {
 	return (
 		<div>
 			<PageHeader
-				breadcrumb={[{ title: 'Templates' }, { title: 'foo1' }, { title: 'foo2' }]}
+				breadcrumb={[{ title: 'Templates' }]}
 				right={<Link href={'/templates/new'}>New template</Link>}
 			/>
 			<Table

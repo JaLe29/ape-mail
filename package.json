@@ -11,7 +11,8 @@
 		"migrate:deploy": "npx prisma migrate deploy",
 		"migrate:full": "yarn migrate:dev && yarn migrate:deploy",
 		"lint": "next lint",
-		"prisma:generate": "prisma generate"
+		"prisma:generate": "prisma generate",
+		"prisma:start-sql": "npx prisma migrate diff --from-empty --to-schema-datasource prisma/schema.prisma --script > prisma/generated.sql"
 	},
 	"dependencies": {
 		"@ant-design/cssinjs": "^1.21.0",
@@ -26,6 +27,7 @@
 		"@trpc/server": "^10.28.0",
 		"antd": "^5.19.0",
 		"antd-zod": "^5.1.0",
+		"dayjs": "^1.11.11",
 		"html-format": "^1.1.7",
 		"next": "13.4.3",
 		"nextjs-toploader": "^1.6.12",
