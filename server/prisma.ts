@@ -15,6 +15,6 @@ export const prisma: PrismaClient =
 		log: env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
 	});
 
-if (env.NODE_ENV !== 'production') {
-	prismaGlobal.prisma = prisma;
-}
+// if (env.NODE_ENV !== 'production') {
+prismaGlobal.prisma = prisma;
+// }

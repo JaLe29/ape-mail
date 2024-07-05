@@ -37,6 +37,6 @@ export const sendEmail = async (to: string, subject: string, html: string) => {
 	});
 };
 
-if (env.NODE_ENV !== 'production') {
-	emailGlobal.email = email;
-}
+// if (env.NODE_ENV !== 'production') {
+emailGlobal.email = email;
+// }
