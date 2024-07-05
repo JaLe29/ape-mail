@@ -18,7 +18,7 @@ jobs:
 
     - name: docker login
       run: |
-        docker login ${{ vars.REGISTRY_BASE_URL }} -u DOCKER_LOGIM -p ${{ secrets.DOCKER_PSW }}
+        docker login -u ${{ secrets.DOCKER_LOGIN }} -p ${{ secrets.DOCKER_PSW }}
 
     - name: Build the Docker image
       run: docker build --no-cache -f ./Dockerfile -t ${{ env.REGISTRY_URL }}:${{ env.TAG }} .
