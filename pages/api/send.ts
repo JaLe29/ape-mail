@@ -13,6 +13,7 @@ const BODY_VALIDATOR = z.object({
 	toEmail: z.string().email(),
 	template: z.string(),
 	values: z.record(z.string(), z.string().or(z.number())),
+	project: z.string().optional(),
 });
 
 type BodyType = z.infer<typeof BODY_VALIDATOR>;
@@ -48,6 +49,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 		prisma.contact.findFirst({
 			where: {
 				email: body.toEmail,
+				project: body.project,
 			},
 		}),
 	]);
@@ -74,6 +76,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 		contact = await prisma.contact.create({
 			data: {
 				email: body.toEmail,
+				project: body.project,
 			},
 		});
 	}

@@ -6,6 +6,7 @@
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
+		"prod": "next start",
 		"migrate:dev": "npx prisma migrate dev",
 		"migrate:deploy": "npx prisma migrate deploy",
 		"migrate:full": "yarn migrate:dev && yarn migrate:deploy",

@@ -1,0 +1,11 @@
+.root {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 1em;
+
+}
+
+.label {
+	font-size: 0.75rem;
+	margin-bottom: 0.5rem;
+}

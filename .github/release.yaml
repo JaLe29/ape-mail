@@ -1,0 +1,27 @@
+name: Release
+
+on:
+  push:
+   branches:
+     - main
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+    env:
+      TAG : ape-mail-${{ github.sha }}-${{ github.run_id }}-${{ github.run_attempt }}
+      REGISTRY_URL: jaledeveloper/ape-mail
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: docker login
+      run: |
+        docker login ${{ vars.REGISTRY_BASE_URL }} -u DOCKER_LOGIM -p ${{ secrets.DOCKER_PSW }}
+
+    - name: Build the Docker image
+      run: docker build --no-cache -f ./Dockerfile -t ${{ env.REGISTRY_URL }}:${{ env.TAG }} .
+
+    - name: Push the Docker image
+      run: docker push ${{ env.REGISTRY_URL }}:${{ env.TAG }}

@@ -1,11 +1,9 @@
 import { publicProcedure, router } from '../trpc';
 import { contactRouter } from './contact.router';
 import { templateRouter } from './template.router';
-import { todoRouter } from './todo.router';
 
 export const appRouter = router({
 	healthcheck: publicProcedure.query(() => 'yay!'),
-	todo: todoRouter,
 	template: templateRouter,
 	contact: contactRouter,
 });

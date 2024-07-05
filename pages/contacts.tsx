@@ -1,5 +1,6 @@
+import { PageHeader } from '@/components/PageHeader';
 import { trpc } from '@/utils/trpc';
-import { Breadcrumb, Table } from 'antd';
+import { Table } from 'antd';
 import type { NextPage } from 'next';
 
 const Contacts: NextPage = () => {
@@ -7,15 +8,15 @@ const Contacts: NextPage = () => {
 
 	return (
 		<div>
-			<Breadcrumb items={[{ title: 'Contacts' }]} />
+			<PageHeader breadcrumb={[{ title: 'Contacts', path: '/contacts' }]} />
 			<Table
 				rowKey="id"
 				dataSource={list.data}
 				columns={[
 					{
-						title: 'Id',
-						dataIndex: 'id',
-						key: 'id',
+						title: 'Project',
+						dataIndex: 'project',
+						key: 'project',
 					},
 					{
 						title: 'Email',

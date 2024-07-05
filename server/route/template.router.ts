@@ -1,10 +1,11 @@
-import { createTemplate, oneTemplate, removeTemplate, updateTemplate } from '@/schema/template.schema';
+import { createTemplate, listTemplate, oneTemplate, removeTemplate, updateTemplate } from '@/schema/template.schema';
 import { prisma } from '@/server/prisma';
+import { TemplateType } from '@prisma/client';
 import { publicProcedure, router } from '../trpc';
 
 export const templateRouter = router({
-	list: publicProcedure.query(async () => {
-		const result = await prisma.template.findMany();
+	list: publicProcedure.input(listTemplate).query(async ({ input }) => {
+		const result = await prisma.template.findMany({ where: { type: input.type } });
 		return result;
 	}),
 	one: publicProcedure.input(oneTemplate).query(async ({ input }) => {
@@ -19,7 +20,10 @@ export const templateRouter = router({
 			where: {
 				id,
 			},
-			data,
+			data: {
+				...data,
+				subject: input.type === TemplateType.CHILD ? input.subject : 'Root template has no subject',
+			},
 		});
 
 		return true;
@@ -37,7 +41,10 @@ export const templateRouter = router({
 	}),
 	create: publicProcedure.input(createTemplate).mutation(async ({ input }) => {
 		const { id } = await prisma.template.create({
-			data: input,
+			data: {
+				...input,
+				subject: input.type === TemplateType.CHILD ? input.subject : 'Root template has no subject',
+			},
 		});
 		return id;
 	}),

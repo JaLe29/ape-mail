@@ -1,11 +1,11 @@
+import { PageHeader } from '@/components/PageHeader';
 import { trpc } from '@/utils/trpc';
 import { Button, Popconfirm, Space, Table } from 'antd';
 import type { NextPage } from 'next';
 import Link from 'next/link';
-import { PageHeader } from './components/PageHeader';
 
 const Templates: NextPage = () => {
-	const list = trpc.template.list.useQuery();
+	const list = trpc.template.list.useQuery({});
 	const remove = trpc.template.remove.useMutation();
 
 	if (list.isLoading) {
@@ -13,7 +13,7 @@ const Templates: NextPage = () => {
 			<div>
 				<PageHeader
 					breadcrumb={[{ title: 'Templates' }, { title: 'foo1' }, { title: 'foo2' }]}
-					right={<Button onClick={() => {}}>New template</Button>}
+					right={<Link href={'/templates/new'}>New template</Link>}
 				/>
 				<>Loading</>
 			</div>
@@ -24,12 +24,17 @@ const Templates: NextPage = () => {
 		<div>
 			<PageHeader
 				breadcrumb={[{ title: 'Templates' }, { title: 'foo1' }, { title: 'foo2' }]}
-				right={<Link href={'/templates/new'}>Detail</Link>}
+				right={<Link href={'/templates/new'}>New template</Link>}
 			/>
 			<Table
 				rowKey="id"
 				dataSource={list.data}
 				columns={[
+					{
+						title: 'Type',
+						dataIndex: 'type',
+						key: 'type',
+					},
 					{
 						title: 'Subject',
 						dataIndex: 'subject',

@@ -10,12 +10,9 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Todo {
-    id          Int      @id @default(autoincrement())
-    title       String
-    description String
-    createdAt   DateTime @default(now()) @db.Timestamp(0)
-    updatedAt   DateTime @default(now()) @db.Timestamp(0)
+enum TemplateType {
+    ROOT
+    CHILD
 }
 
 model Contact {
@@ -25,7 +22,8 @@ model Contact {
     updatedAt DateTime @updatedAt
 
     // ------------------------------------------------------------------------------------------------------------
-    email String
+    email   String
+    project String?
 
     messages Message[]
 }
@@ -43,6 +41,10 @@ model Template {
     body    String
 
     messages Message[]
+
+    type TemplateType @default(CHILD)
+
+	rootTemplateId String?
 }
 
 model Message {
