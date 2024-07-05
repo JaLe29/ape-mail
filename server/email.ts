@@ -27,13 +27,22 @@ const email: Email =
 		},
 	});
 
-export const sendEmail = async (to: string, subject: string, html: string) => {
+export const sendEmail = async (
+	to: string,
+	subject: string,
+	html: string,
+	attachments?: {
+		filename: string;
+		contentType: 'application/pdf';
+		path: string;
+	}[],
+) => {
 	email.sendMail({
 		from: `"${NAME_EMAIL}" <${BASE_EMAIL}>`,
 		to: to,
 		subject: subject,
 		html: html,
-		// attachments,
+		attachments,
 	});
 };
 

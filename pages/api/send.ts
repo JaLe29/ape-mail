@@ -14,6 +14,15 @@ const BODY_VALIDATOR = z.object({
 	template: z.string(),
 	values: z.record(z.string(), z.string().or(z.number())),
 	project: z.string().optional(),
+	files: z
+		.array(
+			z.object({
+				filename: z.string(),
+				path: z.string().url(),
+				contentType: z.enum(['application/pdf']),
+			}),
+		)
+		.optional(),
 });
 
 type BodyType = z.infer<typeof BODY_VALIDATOR>;
@@ -81,7 +90,24 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 		});
 	}
 
-	const emailBody = replaceTemplates(template.body, body.values);
+	const getParentTemplate = async () => {
+		return prisma.template.findUnique({
+			where: {
+				id: template.rootTemplateId!,
+			},
+		});
+	};
+
+	const parentTemplate = template.rootTemplateId ? await getParentTemplate() : undefined;
+
+	if (template.rootTemplateId && !parentTemplate) {
+		res.status(404).json({ message: 'Parent template not found' });
+		return;
+	}
+
+	const emailBody = parentTemplate
+		? replaceTemplates(replaceTemplates(parentTemplate.body, { body: template.body }), body.values)
+		: replaceTemplates(template.body, body.values);
 	const emailSubject = replaceTemplates(template.subject, body.values);
 
 	await prisma.message.create({
@@ -93,7 +119,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 		},
 	});
 
-	await sendEmail(body.toEmail, emailSubject, emailBody);
+	await sendEmail(body.toEmail, emailSubject, emailBody, body.files);
 
 	res.status(200).json({ message: 'Hello from Next.js!' });
 }
