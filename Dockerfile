@@ -9,7 +9,6 @@ COPY ./tsconfig.json				./
 COPY ./yarn.lock					./
 
 COPY ./next.config.js 				./
-COPY ./next-env.d.ts				./
 
 COPY ./utils						./utils
 COPY ./styles						./styles
