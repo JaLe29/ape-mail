@@ -1,0 +1,77 @@
+{
+	"version": "0.0.1",
+	"configurations": [
+		{
+			"name": "api",
+			"type": "node",
+			"request": "launch",
+			"runtimeArgs": [
+				"-r",
+				"ts-node/register/transpile-only",
+				"-r",
+				"tsconfig-paths/register"
+			],
+			"args": [
+				"src/main.ts"
+			],
+			"cwd": "${workspaceRoot}/packages/api",
+			"internalConsoleOptions": "openOnSessionStart",
+			"console": "integratedTerminal",
+			"skipFiles": [
+				"<node_internals>/**",
+				".yarn/**",
+				"node_modules/**",
+				"**/*.test.ts"
+			],
+			"envFile": "${workspaceRoot}/packages/api/.env"
+		},
+		{
+			"name": "application-api",
+			"type": "node",
+			"request": "launch",
+			"runtimeArgs": [
+				"-r",
+				"ts-node/register/transpile-only",
+				"-r",
+				"tsconfig-paths/register"
+			],
+			"args": [
+				"src/main.ts"
+			],
+			"cwd": "${workspaceRoot}/packages/application-api",
+			"internalConsoleOptions": "openOnSessionStart",
+			"console": "integratedTerminal",
+			"skipFiles": [
+				"<node_internals>/**",
+				".yarn/**",
+				"node_modules/**",
+				"**/*.test.ts"
+			],
+			"envFile": "${workspaceRoot}/packages/application-api/.env"
+		},
+		{
+			"name": "worker",
+			"type": "node",
+			"request": "launch",
+			"runtimeArgs": [
+				"-r",
+				"ts-node/register/transpile-only",
+				"-r",
+				"tsconfig-paths/register"
+			],
+			"args": [
+				"src/main.ts"
+			],
+			"cwd": "${workspaceRoot}/packages/worker",
+			"internalConsoleOptions": "openOnSessionStart",
+			"console": "integratedTerminal",
+			"skipFiles": [
+				"<node_internals>/**",
+				".yarn/**",
+				"node_modules/**",
+				"**/*.test.ts"
+			],
+			"envFile": "${workspaceRoot}/packages/worker/.env"
+		},
+	]
+}

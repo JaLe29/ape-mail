@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "include": ["src"],
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src",
+    "tsBuildInfoFile": ".cache/typescript/shared.tsbuildinfo",
+    "types": ["node"],
+    "emitDecoratorMetadata": false,
+	"composite": false
+  }
+}

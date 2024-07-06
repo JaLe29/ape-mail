@@ -1,0 +1,25 @@
+{
+	"extends": "../../tsconfig.base.json",
+	"include": [
+		"../@types",
+		"src",
+	],
+	"exclude": [
+	  "**/dist"
+	],
+	"compilerOptions": {
+		"emitDeclarationOnly": true,
+		"declarationDir": "./types",
+		"declaration": true,
+		"sourceRoot": "/",
+		"outDir": "dist",
+		"rootDir": "src",
+		"baseUrl": "src"
+	},
+	"references": [
+		{
+		  "path": "../backend-shared/tsconfig.build.json"
+		}
+	]
+}
+

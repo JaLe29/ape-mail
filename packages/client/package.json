@@ -1,0 +1,55 @@
+{
+  "name": "@ape-mail/client",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@ant-design/icons": "^5.3.6",
+    "@ape-mail/shared": "*",
+    "@tanstack/react-query": "^4.36.1",
+    "@trpc/client": "^10.45.1",
+    "@trpc/react": "^9.27.4",
+    "@trpc/react-query": "^10.45.1",
+    "antd": "^5.16.2",
+    "dayjs": "^1.11.11",
+    "html-format": "^1.1.7",
+    "react": "^18.2.0",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.22.3",
+    "styled-components": "^6.1.8",
+    "superjson": "^2.2.1",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@trpc/server": "^10.45.1",
+    "@types/node": "^18.19.31",
+    "@types/react": "^18.2.79",
+    "@types/react-dom": "^18.2.25",
+    "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "^8.56.0",
+    "typescript": "^5.3.3",
+    "vite": "^5.2.8",
+    "vite-plugin-checker": "^0.6.4"
+  },
+  "scripts": {
+    "lint": "eslint ./src --ext .ts,.tsx",
+    "lint:fix": "eslint \"src/**/*.ts*\" --fix",
+    "start": "node scripts/start.js",
+    "dev": "vite dev",
+    "build": "vite build --mode release",
+    "build:deps": "yarn workspace @ape-mail/components build && yarn workspace @ape-mail/backend-shared build && yarn workspace @ape-mail/shared build && yarn workspace @ape-mail/shared-mobile build",
+    "bundle:viz": "npx vite-bundle-visualizer"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

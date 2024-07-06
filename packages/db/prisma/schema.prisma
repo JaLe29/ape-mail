@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+enum TemplateType {
+    ROOT
+    CHILD
+}
+
+model Contact {
+    // base entity schema
+    id        String   @id @default(uuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    // ------------------------------------------------------------------------------------------------------------
+    email   String
+    project String?
+
+    messages Message[]
+}
+
+model Template {
+    // base entity schema
+    id        String   @id @default(uuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    // ------------------------------------------------------------------------------------------------------------
+    name        String
+    description String?
+    key         String  @unique
+    subject     String
+    body        String
+
+    messages Message[]
+
+    type TemplateType @default(CHILD)
+
+    rootTemplateId String?
+}
+
+model Message {
+    // base entity schema
+    id        String   @id @default(uuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    // ------------------------------------------------------------------------------------------------------------
+    subject String
+    body    String
+
+    templateId String
+    template   Template @relation(fields: [templateId], references: [id])
+
+    contactId String
+    contact   Contact @relation(fields: [contactId], references: [id])
+}
