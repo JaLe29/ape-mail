@@ -14,7 +14,7 @@ COPY ./yarn.lock			./
 COPY ./packages/client 						./packages/client
 COPY ./packages/api 						./packages/api
 COPY ./packages/shared						./packages/shared
-COPY ./packages/db							./packages/db
+COPY ./packages/db/prisma/schema.prisma		./packages/api/schema.prisma
 
 RUN yarn install
 
