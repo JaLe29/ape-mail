@@ -57,7 +57,5 @@ ENV TZ Europe/Prague
 RUN apk add --no-cache tzdata \
 	&& ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-RUN apk add fontconfig
-
 USER 1000:1000
 CMD [ "sh", "-c", "TS_NODE_PROJECT=./tsconfig.prod.json node -r tsconfig-paths/register ./dist/main.js" ]
