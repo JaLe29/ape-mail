@@ -1,0 +1,33 @@
+{
+	"name": "@ape-mail/db",
+	"private": true,
+	"version": "0.1.0",
+	"main": "./index.ts",
+	"types": "./index.ts",
+	"license": "MIT",
+	"prisma": {
+		"seed": "npx ts-node ./prisma/seeds/index.ts"
+	},
+	"scripts": {
+		"all": "yarn format && yarn generate && yarn migrate:full",
+		"studio": "prisma studio",
+		"clean": "rm -rf .turbo node_modules",
+		"generate": "prisma generate",
+		"format": "prisma format",
+		"prisma:generate": "prisma generate",
+		"migrate:dev": "npx prisma migrate dev",
+		"migrate:deploy": "npx prisma migrate deploy",
+		"migrate:full": "yarn migrate:dev && yarn migrate:deploy",
+		"reset": "npx prisma migrate reset --skip-seed",
+		"seed": "npx prisma db seed"
+	},
+	"dependencies": {
+		"@prisma/client": "^5.15.0"
+	},
+	"devDependencies": {
+		"prisma": "^5.15.0",
+		"prisma-dbml-generator": "^0.12.0",
+		"ts-node": "^10.9.2",
+		"typescript": "^5.3.3"
+	}
+}

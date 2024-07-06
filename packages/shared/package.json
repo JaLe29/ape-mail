@@ -1,0 +1,28 @@
+{
+  "name": "@ape-mail/shared",
+  "version": "1.0.0",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "sideEffects": false,
+  "license": "MIT",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "tsup src/**/*.ts --format esm,cjs --dts",
+    "watch": "yarn build && tsup src/**/*.ts --format esm,cjs --watch --dts",
+    "prisma:generate": "npx @kalissaac/prisma-typegen ./src/types ../db/prisma/schema.prisma",
+    "lint": "eslint \"src/**/*.ts\"",
+    "lint:fix": "eslint ./src --ext .ts --fix"
+  },
+  "devDependencies": {
+    "@kalissaac/prisma-typegen": "^0.0.7",
+    "tsup": "^8.0.2",
+    "typescript": "^5.3.3"
+  },
+  "peerDependencies": {
+    "dayjs": "^1.11.11",
+    "zod": "^3.22.4"
+  }
+}

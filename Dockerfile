@@ -1,62 +1,62 @@
-FROM --platform=linux/amd64 node:18-alpine AS build
+### BUILD
+FROM node:18-alpine AS build
 
-# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
-RUN apk add --no-cache libc6-compat
 WORKDIR /usr/app
 
-COPY ./package.json					./
-COPY ./tsconfig.json				./
-COPY ./yarn.lock					./
+COPY ./.yarn/cache			./.yarn/cache
+COPY ./.yarn/plugins		./.yarn/plugins
+COPY ./.yarn/releases		./.yarn/releases
+COPY ./.yarnrc.yml			./
+COPY ./package.json			./
+COPY ./tsconfig.base.json	./
+COPY ./yarn.lock			./
 
-COPY ./next.config.js 				./
-
-COPY ./utils						./utils
-COPY ./styles						./styles
-COPY ./schema						./schema
-COPY ./server						./server
-COPY ./public						./public
-COPY ./prisma						./prisma
-COPY ./pages						./pages
-COPY ./components					./components
+COPY ./packages/client 						./packages/client
+COPY ./packages/api 						./packages/api
+COPY ./packages/shared						./packages/shared
 
 RUN yarn install
 
-# WORKDIR /usr/app/
+RUN yarn workspace @ape-mail/shared build
 
-ARG TAG
-ENV NEXT_PUBLIC_VERSION=$TAG
+RUN echo "PRISMA" && cat ./packages/api/package.json/package.json | sed -i 's/..\/db\/prisma\/schema.prisma/schema.prisma/g' ./packages/api/package.json
+RUN yarn workspace @ape-mail/api prisma:generate
+RUN yarn workspace @ape-mail/api build:types
 
-RUN yarn prisma:generate \
-	&& yarn build \
-	&& mkdir /usr/app/build \
-	&& cp -r .next /usr/app/build \
-	&& cp -r public /usr/app/build/public \
-	&& cp -r ./next.config.js /usr/app/build/next.config.js
-	# && cp -r .env.production /usr/app/build/.env.production	 \
-	# && yarn prod-install /usr/app/build \
-	# && chmod 777 /usr/app/build/.yarn/install-state.gz
+RUN yarn workspace @ape-mail/client build
+
+WORKDIR /usr/app/packages/api
+
+RUN echo "PRISMA" && cat package.json | sed -i 's/..\/db\/prisma\/schema.prisma/schema.prisma/g' ./package.json
+RUN yarn prisma:generate
+RUN yarn build
+RUN mkdir /usr/app/build
+RUN cp -r dist /usr/app/build
+RUN  cp -r schema.prisma /usr/app/build/schema.prisma
+RUN yarn prod-install /usr/app/build
+RUN chmod 777 /usr/app/build/.yarn/install-state.gz
+
+
+# shared lib CLEAN
+RUN rm -rf /usr/app/build/node_modules/@ape-mail/shared
+RUN mkdir -p /usr/app/build/node_modules/@ape-mail/shared
+RUN cp -r /usr/app/packages/shared/ /usr/app/build/node_modules/@ape-mail
+
+COPY ./packages/api/tsconfig.prod.json						/usr/app/build
 
 ### PRODUCTION
-FROM --platform=linux/amd64 node:18-alpine
+FROM node:18-alpine
 WORKDIR /usr/app
 
 COPY --from=build /usr/app/build ./
-
-COPY --from=build /usr/app/next.config.js ./
-COPY --from=build /usr/app/public ./public
-COPY --from=build /usr/app/.next ./.next
-COPY --from=build /usr/app/node_modules ./node_modules
-COPY --from=build /usr/app/package.json ./package.json
+COPY --from=build /usr/app/packages/client/dist 	./client
 
 ENV TZ Europe/Prague
 
 RUN apk add --no-cache tzdata \
 	&& ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-ENV NODE_ENV production
-ENV NEXT_TELEMETRY_DISABLED 1
-
-RUN chmod 777 /usr/app/.next/cache/
+RUN apk add fontconfig
 
 USER 1000:1000
-CMD ["yarn", "prod"]
+CMD [ "sh", "-c", "TS_NODE_PROJECT=./tsconfig.prod.json node -r tsconfig-paths/register ./dist/main.js" ]
