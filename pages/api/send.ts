@@ -5,10 +5,6 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { z } from 'zod';
 import { fromError } from 'zod-validation-error';
 
-type ResponseData = {
-	message: string;
-};
-
 const BODY_VALIDATOR = z.object({
 	toEmail: z.string().email(),
 	template: z.string(),
@@ -27,13 +23,18 @@ const BODY_VALIDATOR = z.object({
 
 type BodyType = z.infer<typeof BODY_VALIDATOR>;
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) {
+export default async function handler(
+	req: NextApiRequest,
+	res: NextApiResponse<{
+		status: string;
+	}>,
+) {
 	if (req.method !== 'POST') {
-		res.status(405).send({ message: 'Only POST requests allowed' });
+		res.status(405).send({ status: 'Only POST requests allowed' });
 		return;
 	}
 	if (req.headers['content-type'] !== 'application/json') {
-		res.status(400).send({ message: 'Content-Type must be application/json' });
+		res.status(400).send({ status: 'Content-Type must be application/json' });
 		return;
 	}
 
@@ -44,7 +45,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 	} catch (err) {
 		const validationError = fromError(err);
 		console.log(validationError.toString());
-		res.status(400).json({ message: validationError.toString() });
+		res.status(400).json({ status: validationError.toString() });
 		return;
 	}
 
@@ -64,7 +65,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 	]);
 
 	if (!template) {
-		res.status(404).json({ message: 'Template not found' });
+		res.status(404).json({ status: 'Template not found' });
 		return;
 	}
 
@@ -76,7 +77,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 	const missingTemplates = templates.filter(template => !requestTemplates.includes(template));
 
 	if (missingTemplates.length) {
-		res.status(400).json({ message: `Missing template values: ${missingTemplates.join(', ')}` });
+		res.status(400).json({ status: `Missing template values: ${missingTemplates.join(', ')}` });
 		return;
 	}
 
@@ -101,7 +102,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 	const parentTemplate = template.rootTemplateId ? await getParentTemplate() : undefined;
 
 	if (template.rootTemplateId && !parentTemplate) {
-		res.status(404).json({ message: 'Parent template not found' });
+		res.status(404).json({ status: 'Parent template not found' });
 		return;
 	}
 
@@ -121,5 +122,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
 	await sendEmail(body.toEmail, emailSubject, emailBody, body.files);
 
-	res.status(200).json({ message: 'Hello from Next.js!' });
+	res.status(200).json({ status: 'ok' });
 }
