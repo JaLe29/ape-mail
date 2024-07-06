@@ -4,7 +4,7 @@ import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
 import superjson from 'superjson';
 import type { AppRouter } from '../../../api/src/trpc/router';
 
-export const BASE_API = import.meta.env.VITE_BASE_URL ?? '/';
+export const BASE_API = import.meta.env.VITE_BASE_URL ?? window.location.origin;
 
 export const trpc = createTRPCReact<AppRouter>();
 
