@@ -37,7 +37,6 @@
     "start": "node scripts/start.js",
     "dev": "vite dev",
     "build": "vite build --mode release",
-    "build:deps": "yarn workspace @ape-mail/components build && yarn workspace @ape-mail/backend-shared build && yarn workspace @ape-mail/shared build && yarn workspace @ape-mail/shared-mobile build",
     "bundle:viz": "npx vite-bundle-visualizer"
   },
   "browserslist": {

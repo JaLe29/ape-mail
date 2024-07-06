@@ -15,11 +15,6 @@
 		"outDir": "dist",
 		"rootDir": "src",
 		"baseUrl": "src"
-	},
-	"references": [
-		{
-		  "path": "../backend-shared/tsconfig.build.json"
-		}
-	]
+	}
 }
 
