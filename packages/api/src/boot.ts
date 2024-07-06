@@ -26,7 +26,7 @@ export const bootstrap = async (): Promise<void> => {
 		origin: '*',
 	});
 
-	const distPath = path.join(__dirname, '..', '..', 'client'); // path.join(__dirname, '..', '..', 'client', 'dist');
+	const distPath = path.join('usr', 'app', 'client'); // path.join(__dirname, '..', '..', 'client', 'dist');
 	fastify.register(fastifyStatic, {
 		root: distPath,
 		prefix: '/',
