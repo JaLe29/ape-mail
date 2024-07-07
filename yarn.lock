@@ -121,6 +121,7 @@ __metadata:
     "@prisma/client": "npm:^5.15.0"
     "@trpc/server": "npm:^10.45.1"
     "@types/node": "npm:^18.19.31"
+    "@types/nodemailer": "npm:^6"
     "@types/source-map-support": "npm:^0.5.10"
     app: "link:./src/app"
     const: "link:./src/const"
@@ -130,6 +131,7 @@ __metadata:
     fastify: "npm:^4.28.0"
     fix-esm: "npm:^1.0.1"
     modules: "link:./src/modules"
+    nodemailer: "npm:^6.9.14"
     prisma: "npm:^5.15.0"
     rimraf: "npm:^5.0.5"
     source-map-support: "npm:^0.5.21"
@@ -141,6 +143,7 @@ __metadata:
     typescript: "npm:^5.3.3"
     utils: "link:./src/utils"
     zod: "npm:^3.22.4"
+    zod-validation-error: "npm:^3.3.0"
   languageName: unknown
   linkType: soft
 
@@ -2366,6 +2369,15 @@ __metadata:
   dependencies:
     undici-types: "npm:~5.26.4"
   checksum: 10/654194d4f3cc5867e5525a39647773a12c0c7175972bc4d288cdc74991fc969be2a9689267a3dc1cc5c5c7617e8f7c4769ac4829525726cd3e2f60eb238c1ff4
+  languageName: node
+  linkType: hard
+
+"@types/nodemailer@npm:^6":
+  version: 6.4.15
+  resolution: "@types/nodemailer@npm:6.4.15"
+  dependencies:
+    "@types/node": "npm:*"
+  checksum: 10/1b400b694ed1bc51c242a719de44b484911481596c288407fff18b81ee76945d2d0c6e411371dfa4293747ebf4146a1f0df0e188ff7b9d2adaccd1183dfa1c2c
   languageName: node
   linkType: hard
 
@@ -6775,6 +6787,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"nodemailer@npm:^6.9.14":
+  version: 6.9.14
+  resolution: "nodemailer@npm:6.9.14"
+  checksum: 10/749d1a3ef440d6147c37ad850f5be065d55d87cd46a4470372d4e443593838a5ddd78c69623817a804ddede3212fa28ac069b5b8266e892b27e1dcff75103def
+  languageName: node
+  linkType: hard
+
 "nopt@npm:^5.0.0":
   version: 5.0.0
   resolution: "nopt@npm:5.0.0"
@@ -10530,6 +10549,15 @@ __metadata:
     compress-commons: "npm:^4.1.0"
     readable-stream: "npm:^3.6.0"
   checksum: 10/4a73da856738b0634700b52f4ab3fe0bf0a532bea6820ad962d0bda0163d2d5525df4859f89a7238e204a378384e12551985049790c1894c3ac191866e85887f
+  languageName: node
+  linkType: hard
+
+"zod-validation-error@npm:^3.3.0":
+  version: 3.3.0
+  resolution: "zod-validation-error@npm:3.3.0"
+  peerDependencies:
+    zod: ^3.18.0
+  checksum: 10/19574cbc453c7a41105de572546e95191958f459dd93440f541a42c0ff209b56f1cd54e8f8ab1899430dd7c183e11cd16e8cace0bd4fc5d356ef772645210792
   languageName: node
   linkType: hard
 

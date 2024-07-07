@@ -2,7 +2,7 @@
 /* eslint-disable react/no-danger */
 /* eslint-disable no-console */
 
-import { TemplateType } from '@ape-mail/shared';
+import { TemplateType, getTemplates, isUUID, replaceTemplates } from '@ape-mail/shared';
 import { Button, Divider, Input, Radio, Select, Space, Tag, notification } from 'antd';
 import format from 'html-format';
 import { useEffect, useState } from 'react';
@@ -10,7 +10,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { FormElement } from '../components/FormElement';
 import { PageHeader } from '../components/PageHeader';
-import { getTemplates, isUUID, replaceTemplates } from '../utils/string';
 import { trpc } from '../utils/trcp';
 
 const Wrapper = styled.div`

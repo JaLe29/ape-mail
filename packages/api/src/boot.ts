@@ -5,14 +5,18 @@ import { fastifyTRPCPlugin, FastifyTRPCPluginOptions } from '@trpc/server/adapte
 import Fastify from 'fastify';
 import fs from 'fs';
 import path from 'path';
+import { ApiService } from './service/api.service';
+import { EmailService } from './service/email.service';
 import { K8SService } from './service/k8s.service';
 import { buildContext } from './trpc/context';
 import { appRouter, type AppRouter } from './trpc/router';
 
 export const bootstrap = async (): Promise<void> => {
+	const emailService = new EmailService();
 	const prisma = new PrismaClient();
 	const k8SServiceInstance = new K8SService();
-
+	const apiService = new ApiService(prisma, emailService);
+	//
 	await prisma.$connect();
 
 	const fastify = Fastify({
@@ -39,6 +43,7 @@ export const bootstrap = async (): Promise<void> => {
 
 	fastify.get('/k8s/live', (req, res) => k8SServiceInstance.liveRequest(req, res));
 	fastify.get('/k8s/ready', (req, res) => k8SServiceInstance.readyRequest(req, res));
+	fastify.post('/api/send', (req, res) => apiService.send(req, res));
 
 	fastify.register(fastifyTRPCPlugin, {
 		prefix: '/trpc',

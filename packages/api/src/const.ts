@@ -42,8 +42,4 @@ export const loadNulableNumber = (path: string): undefined | number => {
 };
 
 //
-export const ENV_ES_HOST = loadString('ES_HOST');
-export const ENV_ENV = (loadNullableString('ENV', ['DEV', 'BETA', 'PROD']) as 'DEV' | 'BETA' | 'PROD') ?? 'DEV';
-export const ENV_K8S_POD_NAME = loadNullableString('K8S_POD_NAME') ?? 'no-pod-name';
-export const ENV_TOKEN = loadString('TOKEN');
-export const ENV_SLACK_URL = loadNullableString('SLACK_URL');
+export const ENV_EMAIL_PASSWORD = loadString('EMAIL_PASSWORD');
