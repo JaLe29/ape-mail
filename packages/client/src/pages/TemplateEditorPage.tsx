@@ -10,6 +10,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { FormElement } from '../components/FormElement';
 import { PageHeader } from '../components/PageHeader';
+import { TemplateTypeIcon } from '../components/TemplateTypeIcon';
 import { trpc } from '../utils/trcp';
 
 const Wrapper = styled.div`
@@ -138,7 +139,7 @@ export const TemplateEditorPage: React.FC = () => {
 
 			<Wrapper>
 				<div className="childA">
-					<FormElement label="Type">
+					<FormElement label="Template type">
 						<Radio.Group
 							onChange={e => {
 								setTemplate(prev => {
@@ -156,8 +157,12 @@ export const TemplateEditorPage: React.FC = () => {
 							}}
 							value={template.type}
 						>
-							<Radio value={TemplateType.CHILD}>CHILD</Radio>
-							<Radio value={TemplateType.ROOT}>ROOT</Radio>
+							<Radio value={TemplateType.CHILD}>
+								<TemplateTypeIcon type={TemplateType.CHILD} />
+							</Radio>
+							<Radio value={TemplateType.ROOT}>
+								<TemplateTypeIcon type={TemplateType.ROOT} />
+							</Radio>
 						</Radio.Group>
 					</FormElement>
 					<FormElement label="Key">

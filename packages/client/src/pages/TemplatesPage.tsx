@@ -1,6 +1,8 @@
+import { DeleteOutlined, EyeOutlined } from '@ant-design/icons';
 import { Button, Popconfirm, Space, Table } from 'antd';
 import { Link } from 'react-router-dom';
 import { PageHeader } from '../components/PageHeader';
+import { TemplateTypeIcon } from '../components/TemplateTypeIcon';
 import { trpc } from '../utils/trcp';
 
 export const TemplatesPage: React.FC = () => {
@@ -28,8 +30,7 @@ export const TemplatesPage: React.FC = () => {
 				columns={[
 					{
 						title: 'Type',
-						dataIndex: 'type',
-						key: 'type',
+						render: record => <TemplateTypeIcon type={record.type} />,
 					},
 					{
 						title: 'Subject',
@@ -50,10 +51,12 @@ export const TemplatesPage: React.FC = () => {
 						title: 'Action',
 						render: record => (
 							<Space>
-								<Link to={`/templates/${record.id}`}>Detail</Link>
+								<Link to={`/templates/${record.id}`}>
+									<Button type="primary" icon={<EyeOutlined />} />
+								</Link>
 								<Popconfirm
-									title="Delete the project"
-									description="Are you sure to delete this proect?"
+									title="Delete the template"
+									description="Are you sure to delete this template?"
 									onConfirm={async () => {
 										await remove.mutateAsync({ id: record.id });
 										await list.refetch();
@@ -61,7 +64,7 @@ export const TemplatesPage: React.FC = () => {
 									okText="Yes"
 									cancelText="No"
 								>
-									<Button>Remove</Button>
+									<Button danger icon={<DeleteOutlined />} />
 								</Popconfirm>
 							</Space>
 						),

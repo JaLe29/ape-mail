@@ -36,11 +36,11 @@ const App: React.FC = () => {
 		<ConfigProvider
 			theme={{
 				token: {
-					colorPrimary: '#2875ea',
+					colorPrimary: '#E732AB',
 					colorSuccess: '#52c41a',
 					colorWarning: '#faad14',
 					colorError: '#ff4d4f',
-					colorInfo: '#2875ea',
+					colorInfo: '#E732AB',
 				},
 			}}
 		>

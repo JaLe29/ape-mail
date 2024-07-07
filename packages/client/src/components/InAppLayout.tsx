@@ -13,7 +13,15 @@ import styled from 'styled-components';
 const { Header, Sider, Content } = LayoutAntd;
 
 const StyledLayout = styled(LayoutAntd)`
-	height: 100vh;
+	min-height: 100vh;
+`;
+
+const Logo = styled.img`
+	height: 32px;
+	margin: 16px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
 `;
 
 export const InAppLayout: React.FC = () => {
@@ -29,7 +37,7 @@ export const InAppLayout: React.FC = () => {
 	return (
 		<StyledLayout>
 			<Sider trigger={null} collapsible collapsed={collapsed}>
-				LOGO
+				<Logo src="/logo.png" alt="logo" />
 				<div className="demo-logo-vertical" />
 				<Menu
 					theme="dark"
