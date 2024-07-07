@@ -235,7 +235,6 @@ export const TemplateEditorPage: React.FC = () => {
 											{t.name}
 										</Select.Option>
 									))}
-									<Select.Option value="sample">Sample</Select.Option>
 								</Select>
 							</FormElement>
 						</>

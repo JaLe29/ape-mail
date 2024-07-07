@@ -31,14 +31,7 @@ export class ApiService {
 	) {}
 
 	async send(req: FastifyRequest, res: FastifyReply) {
-		if (req.method !== 'POST') {
-			res.status(405).send({ status: 'Only POST requests allowed' });
-			return;
-		}
-		if (req.headers['content-type'] !== 'application/json') {
-			res.status(400).send({ status: 'Content-Type must be application/json' });
-			return;
-		}
+		console.log('req.body', req.body);
 
 		const body = req.body as BodyType;
 
