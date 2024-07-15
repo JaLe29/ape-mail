@@ -166,7 +166,6 @@ __metadata:
     dayjs: "npm:^1.11.11"
     eslint: "npm:^8.56.0"
     html-format: "npm:^1.1.7"
-    keycloak-js: "npm:^21.1.2"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.3.1"
     react-router-dom: "npm:^6.22.3"
@@ -3221,7 +3220,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"base64-js@npm:^1.3.1, base64-js@npm:^1.5.1":
+"base64-js@npm:^1.3.1":
   version: 1.5.1
   resolution: "base64-js@npm:1.5.1"
   checksum: 10/669632eb3745404c2f822a18fc3a0122d2f9a7a13f7fb8b5823ee19d1d2ff9ee5b52c53367176ea4ad093c332fd5ab4bd0ebae5a8e27917a4105a4cfc86b1005
@@ -6058,13 +6057,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"js-sha256@npm:^0.9.0":
-  version: 0.9.0
-  resolution: "js-sha256@npm:0.9.0"
-  checksum: 10/4dc16be74bf4e60d8ee2a482cc822c4d4f5cd060d9f92a060fe3ab1f143cd0946edda552cd274459251c279073df15872a5df47fc4bff054bbc3812e396e990b
-  languageName: node
-  linkType: hard
-
 "js-tokens@npm:^3.0.0 || ^4.0.0, js-tokens@npm:^4.0.0":
   version: 4.0.0
   resolution: "js-tokens@npm:4.0.0"
@@ -6197,16 +6189,6 @@ __metadata:
     object.assign: "npm:^4.1.4"
     object.values: "npm:^1.1.6"
   checksum: 10/b61d44613687dfe4cc8ad4b4fbf3711bf26c60b8d5ed1f494d723e0808415c59b24a7c0ed8ab10736a40ff84eef38cbbfb68b395e05d31117b44ffc59d31edfc
-  languageName: node
-  linkType: hard
-
-"keycloak-js@npm:^21.1.2":
-  version: 21.1.2
-  resolution: "keycloak-js@npm:21.1.2"
-  dependencies:
-    base64-js: "npm:^1.5.1"
-    js-sha256: "npm:^0.9.0"
-  checksum: 10/4b3690fe3ce819e3f69e3ab8df561684c3f710cf9602b722e536869b3aa3e3f6b4ba68c0c67c44745e34d44c1ff31b65b14964ab3d5db04179341807de38cf0e
   languageName: node
   linkType: hard
 
