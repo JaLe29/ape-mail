@@ -9,22 +9,11 @@ export const TemplatesPage: React.FC = () => {
 	const list = trpc.template.list.useQuery({});
 	const remove = trpc.template.remove.useMutation();
 
-	if (list.isLoading) {
-		return (
-			<div>
-				<PageHeader
-					breadcrumb={[{ title: 'Templates' }]}
-					right={<Link to="/templates/new">New template</Link>}
-				/>
-				<>Loading</>
-			</div>
-		);
-	}
-
 	return (
 		<div>
 			<PageHeader breadcrumb={[{ title: 'Templates' }]} right={<Link to="/templates/new">New template</Link>} />
 			<Table
+				loading={list.isLoading}
 				rowKey="id"
 				dataSource={list.data}
 				columns={[
