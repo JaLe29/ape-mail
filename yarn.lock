@@ -172,6 +172,7 @@ __metadata:
     styled-components: "npm:^6.1.8"
     superjson: "npm:^2.2.1"
     typescript: "npm:^5.3.3"
+    use-debounce: "npm:^10.0.1"
     vite: "npm:^5.2.8"
     vite-plugin-checker: "npm:^0.6.4"
     zod: "npm:^3.22.4"
@@ -10136,6 +10137,15 @@ __metadata:
   dependencies:
     punycode: "npm:^2.1.0"
   checksum: 10/b271ca7e3d46b7160222e3afa3e531505161c9a4e097febae9664e4b59912f4cbe94861361a4175edac3a03fee99d91e44b6a58c17a634bc5a664b19fc76fbcb
+  languageName: node
+  linkType: hard
+
+"use-debounce@npm:^10.0.1":
+  version: 10.0.1
+  resolution: "use-debounce@npm:10.0.1"
+  peerDependencies:
+    react: ">=16.8.0"
+  checksum: 10/e6e9f2cfd698faf5d581eb57d17901e804b731ad5206c1b3b709d43f2180a67105d3b679645aa3e9c61c7ceb76bb70a4d0923fcf5c3528802a4e9bc9a685d423
   languageName: node
   linkType: hard
 

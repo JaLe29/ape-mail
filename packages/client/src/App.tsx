@@ -3,6 +3,7 @@ import { ConfigProvider } from 'antd';
 import 'dayjs/locale/cs';
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
 import { InAppLayout } from './components/InAppLayout';
+import { ContactsDetailPage } from './pages/ContactsDetailPage';
 import { ContactsPage } from './pages/ContactsPage';
 import { HomePage } from './pages/HomePage';
 import { TemplateEditorPage } from './pages/TemplateEditorPage';
@@ -26,6 +27,7 @@ const App: React.FC = () => {
 					<Route path="/templates" Component={TemplatesPage} />
 					<Route path="/templates/:id" Component={TemplateEditorPage} />
 					<Route path="/contacts" Component={ContactsPage} />
+					<Route path="/contacts/:id" Component={ContactsDetailPage} />
 				</Route>
 			</>,
 		),

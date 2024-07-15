@@ -29,7 +29,7 @@ export const InAppLayout: React.FC = () => {
 
 	const isHomePage = pathname === '/';
 
-	const [collapsed, setCollapsed] = useState(false);
+	const [collapsed, setCollapsed] = useState(true);
 	const {
 		token: { colorBgContainer, borderRadiusLG },
 	} = theme.useToken();

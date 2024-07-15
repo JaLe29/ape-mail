@@ -65,6 +65,16 @@ export const updateTemplate = z.object({
 // contact schemas
 export const listContacts = z.object({
 	pagination: paginationTemplate.optional(),
+	where: z
+		.object({
+			email: z.string().optional(),
+			project: z.string().optional(),
+		})
+		.optional(),
+});
+
+export const oneContact = z.object({
+	id: z.string().uuid(),
 });
 // end of contact schemas
 
@@ -72,6 +82,20 @@ export const listContacts = z.object({
 export const contactRouter = router({
 	list: publicProcedure.input(listContacts).query(async ({ ctx, input }) => {
 		const pagination = input.pagination || { take: 10, skip: 0 };
+		const whereInput = input.where || {};
+
+		const where: any = {};
+		if (whereInput.email) {
+			where.email = {
+				contains: whereInput.email,
+			};
+		}
+
+		if (whereInput.project) {
+			where.project = {
+				contains: whereInput.project,
+			};
+		}
 
 		const [result, resultTotal] = await Promise.all([
 			ctx.prisma.contact.findMany({
@@ -79,8 +103,9 @@ export const contactRouter = router({
 					createdAt: 'desc',
 				},
 				...pagination,
+				where,
 			}),
-			ctx.prisma.contact.count({}),
+			ctx.prisma.contact.count({ where }),
 		]);
 
 		const grouped = await ctx.prisma.message.groupBy({
@@ -100,6 +125,20 @@ export const contactRouter = router({
 		});
 
 		return { data, total: resultTotal };
+	}),
+	one: publicProcedure.input(oneContact).query(async ({ input, ctx }) => {
+		const { id } = input;
+
+		const result = await ctx.prisma.contact.findUnique({ where: { id }, include: { messages: true } });
+
+		if (!result) {
+			return result;
+		}
+
+		return {
+			...result,
+			messagesCount: await ctx.prisma.message.count({ where: { contactId: id } }),
+		};
 	}),
 	//
 	totalContacts: publicProcedure.query(async ({ ctx }) => {
@@ -137,6 +176,7 @@ export const contactRouter = router({
 		return result;
 	}),
 });
+
 export const messageRouter = router({
 	totalEmails: publicProcedure.query(async ({ ctx }) => {
 		const result = await ctx.prisma.message.count();
