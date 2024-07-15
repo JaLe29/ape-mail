@@ -1,6 +1,7 @@
 import { Pagination, Table } from 'antd';
 import { useState } from 'react';
 import { PageHeader } from '../components/PageHeader';
+import { Right } from '../components/Right';
 import { RouterInput, trpc } from '../utils/trcp';
 
 export const ContactsPage: React.FC = () => {
@@ -8,16 +9,13 @@ export const ContactsPage: React.FC = () => {
 
 	const list = trpc.contact.list.useQuery({ pagination });
 
-	if (!list.isLoading) {
-		return 'Loading';
-	}
-
 	return (
 		<div>
 			<PageHeader breadcrumb={[{ title: 'Contacts', path: '/contacts' }]} />
 			<Table
+				loading={list.isLoading}
 				rowKey="id"
-				dataSource={list.data}
+				dataSource={list.data?.data}
 				columns={[
 					{
 						title: 'Project',
@@ -37,16 +35,22 @@ export const ContactsPage: React.FC = () => {
 				]}
 				pagination={false}
 			/>
-			<Pagination
-				total={1111}
-				pageSize={pagination?.take}
-				current={pagination?.skip}
-				size="small"
-				showSizeChanger={false}
-				onChange={(p, ps) => {
-					setPagination({ skip: p, take: ps });
-				}}
-			/>
+			{!list.isLoading && (
+				<>
+					<br />
+					<Right>
+						<Pagination
+							total={list.data?.total}
+							pageSize={pagination?.take}
+							current={pagination?.skip}
+							showSizeChanger={false}
+							onChange={(p, ps) => {
+								setPagination({ skip: p, take: ps });
+							}}
+						/>
+					</Right>
+				</>
+			)}
 		</div>
 	);
 };

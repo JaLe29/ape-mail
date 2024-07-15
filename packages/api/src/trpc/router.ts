@@ -73,12 +73,15 @@ export const contactRouter = router({
 	list: publicProcedure.input(listContacts).query(async ({ ctx, input }) => {
 		const pagination = input.pagination || { take: 10, skip: 0 };
 
-		const result = await ctx.prisma.contact.findMany({
-			orderBy: {
-				createdAt: 'desc',
-			},
-			...pagination,
-		});
+		const [result, resultTotal] = await Promise.all([
+			ctx.prisma.contact.findMany({
+				orderBy: {
+					createdAt: 'desc',
+				},
+				...pagination,
+			}),
+			ctx.prisma.contact.count({}),
+		]);
 
 		const grouped = await ctx.prisma.message.groupBy({
 			by: ['contactId'],
@@ -87,7 +90,7 @@ export const contactRouter = router({
 			},
 		});
 
-		return result.map(contact => {
+		const data = result.map(contact => {
 			const messages = grouped.find(group => group.contactId === contact.id);
 
 			return {
@@ -95,6 +98,8 @@ export const contactRouter = router({
 				messagesCount: messages?._count?.contactId || 0,
 			};
 		});
+
+		return { data, total: resultTotal };
 	}),
 	//
 	totalContacts: publicProcedure.query(async ({ ctx }) => {
