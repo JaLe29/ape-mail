@@ -1,9 +1,16 @@
-import { Table } from 'antd';
+import { Pagination, Table } from 'antd';
+import { useState } from 'react';
 import { PageHeader } from '../components/PageHeader';
-import { trpc } from '../utils/trcp';
+import { RouterInput, trpc } from '../utils/trcp';
 
 export const ContactsPage: React.FC = () => {
-	const list = trpc.contact.list.useQuery();
+	const [pagination, setPagination] = useState<RouterInput['contact']['list']['pagination']>({ take: 10, skip: 0 });
+
+	const list = trpc.contact.list.useQuery({ pagination });
+
+	if (!list.isLoading) {
+		return 'Loading';
+	}
 
 	return (
 		<div>
@@ -28,6 +35,17 @@ export const ContactsPage: React.FC = () => {
 						key: 'messagesCount',
 					},
 				]}
+				pagination={false}
+			/>
+			<Pagination
+				total={1111}
+				pageSize={pagination?.take}
+				current={pagination?.skip}
+				size="small"
+				showSizeChanger={false}
+				onChange={(p, ps) => {
+					setPagination({ skip: p, take: ps });
+				}}
 			/>
 		</div>
 	);
