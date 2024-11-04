@@ -25,12 +25,16 @@ export class EmailService {
 			path: string;
 		}[],
 	) {
-		this.email.sendMail({
-			from: `"${NAME_EMAIL}" <${BASE_EMAIL}>`,
-			to,
-			subject,
-			html,
-			attachments,
-		});
+		try {
+			this.email.sendMail({
+				from: `"${NAME_EMAIL}" <${BASE_EMAIL}>`,
+				to,
+				subject,
+				html,
+				attachments,
+			});
+		} catch (error) {
+			console.error(error);
+		}
 	}
 }
