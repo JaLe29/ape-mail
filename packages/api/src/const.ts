@@ -42,5 +42,4 @@ export const loadNulableNumber = (path: string): undefined | number => {
 };
 
 //
-export const ENV_EMAIL_PASSWORD = loadString('EMAIL_PASSWORD');
 export const ENV_SENDGRID_API_KEY = loadString('SENDGRID_API_KEY');
